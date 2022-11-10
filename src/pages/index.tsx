@@ -10,8 +10,15 @@ const Home: NextPage = () => {
   const handleSubmit = () => {
     const enc = encodeURIComponent(code);
     console.log(enc);
+    if (endpoint === "") return;
     try {
-      fetch(endpoint, { method: "POST" })
+      fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: code }),
+      })
         .then((res) => res.json())
         .then((data) => setResponse(JSON.stringify(data)));
     } catch (e) {
